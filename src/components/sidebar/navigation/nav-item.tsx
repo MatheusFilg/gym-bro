@@ -1,19 +1,15 @@
-import { ElementType } from 'react'
+import { Link, LinkProps, useLocation } from 'react-router-dom'
 
-interface NavItemProps {
-  title: string
-  icon: ElementType
-  href: string
-}
+export type NavItemProps = LinkProps
 
-export function NavItem({ title, icon: Icon, href }: NavItemProps) {
+export function NavItem(props: NavItemProps) {
+  const { pathname } = useLocation()
+
   return (
-    <a
-      href={href}
+    <Link
+      data-current={pathname === props.to}
+      {...props}
       className="flex flex-row items-center gap-2 rounded p-1 lg:hover:bg-accent lg:hover:text-muted-foreground"
-    >
-      <Icon />
-      <span className="text-lg font-semibold">{title}</span>
-    </a>
+    />
   )
 }

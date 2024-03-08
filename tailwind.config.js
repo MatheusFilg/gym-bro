@@ -21,6 +21,7 @@ module.exports = {
         app: 'minmax(18rem, 20rem) 1fr',
       },
       colors: {
+        active: 'hsl(var(--active))',
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',

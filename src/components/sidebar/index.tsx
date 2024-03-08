@@ -1,5 +1,6 @@
 import { Dumbbell } from 'lucide-react'
 
+import { Footer } from '../footer'
 import { SignIn } from '../sign-in'
 import { ThemeToggle } from '../theme/theme-toggle'
 import { Navigation } from './navigation'
@@ -20,7 +21,7 @@ export function Sidebar() {
         <Navigation />
       </div>
       <div>
-        <h1>Footer da sidebar</h1>
+        <Footer />
       </div>
     </div>
   )

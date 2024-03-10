@@ -7,11 +7,11 @@ import { Navigation } from './navigation'
 
 export function Sidebar() {
   return (
-    <div className="flex min-h-screen flex-col space-y-6 p-6 lg:border-r">
+    <div className="flex min-h-screen flex-col space-y-6 px-4 py-8 lg:border-r">
       <div className="flex flex-row justify-between gap-2">
         <div className="flex flex-row items-center gap-2">
           <Dumbbell className="h-8 w-8" />
-          <span className="text-3xl font-bold tracking-tight">Gym.Bro</span>
+          <span className="text-2xl font-semibold tracking-tight">Gym.Bro</span>
         </div>
         <ThemeToggle />
       </div>

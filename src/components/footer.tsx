@@ -2,7 +2,6 @@ import { Github, Linkedin } from 'lucide-react'
 
 export function Footer() {
   return (
-    // Quando o usuário estivesse logado aqui poderia ser o botão de logout
     <div className="flex flex-row justify-between">
       <p className="text-lg font-medium leading-relaxed">
         Feito por <span className="underline">Matheus F.</span>

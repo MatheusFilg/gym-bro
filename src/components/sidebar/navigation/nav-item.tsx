@@ -9,7 +9,7 @@ export function NavItem(props: NavItemProps) {
     <Link
       data-current={pathname === props.to}
       {...props}
-      className="data-[current=true]:text-active flex flex-row items-center gap-2 rounded p-1 lg:hover:bg-accent lg:hover:text-border"
+      className="flex flex-row items-center gap-2 rounded p-1 data-[current=true]:text-active lg:hover:bg-accent lg:hover:text-border"
     />
   )
 }

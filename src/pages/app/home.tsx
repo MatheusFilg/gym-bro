@@ -1,8 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Search, X } from 'lucide-react'
 import { Helmet } from 'react-helmet-async'
 import { Controller, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
+import { Button } from '@/components/ui/button'
 import {
   Select,
   SelectContent,
@@ -57,6 +59,15 @@ export function Home() {
             )
           }}
         />
+
+        <Button type="submit" variant="default" size="xs">
+          <Search className="mr-2 h-4 w-4" />
+          Filtrar resultados
+        </Button>
+        <Button type="button" variant="outline" size="xs">
+          <X className="mr-2 h-4 w-4" />
+          Remover Filtros
+        </Button>
       </form>
     </div>
   )

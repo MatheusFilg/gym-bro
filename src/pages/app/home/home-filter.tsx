@@ -69,7 +69,7 @@ export function HomeFilter() {
         <DateRangePicker date={dateRange} onDateChange={setDateRange} />
       </div>
 
-      <div className="gap-2">
+      <div className="space-x-2">
         <Button type="submit" variant="default" size="xs">
           <Search className="mr-2 h-4 w-4" />
           Filtrar resultados

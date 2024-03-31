@@ -1,4 +1,6 @@
-import { Search, X } from 'lucide-react'
+import { formatDistanceToNow } from 'date-fns'
+import { ptBR } from 'date-fns/locale'
+import { Check, Search, X } from 'lucide-react'
 import { useState } from 'react'
 
 import { Button } from './ui/button'
@@ -7,10 +9,10 @@ import { WorkoutDetails } from './workout-details'
 
 interface WorkoutCardProps {
   workout: {
-    workoutId: string
-    createdAt: string
-    workoutType: string
+    id: string
+    workout_category: 'upper' | 'lower'
     aerobic: boolean
+    created_at: string
   }
 }
 
@@ -18,19 +20,33 @@ export function WorktoutCard({ workout }: WorkoutCardProps) {
   const [isDetailOpen, setIsDetailsOpen] = useState(false)
 
   return (
-    <div className="flex w-[200px] flex-col items-center space-y-4 rounded bg-primary px-4 py-6">
+    <div className="flex w-[200px] flex-col items-center space-y-4 rounded bg-primary py-4 align-middle">
       <img
         className="h-14 w-14"
         src="https://github.com/MatheusFilg.png"
         alt=""
       />
-      <h1 className="text-lg font-semibold">Treino Inferior</h1>
+      <h1 className="text-lg font-semibold">
+        {workout.workout_category === 'upper'
+          ? 'Treino Superior'
+          : 'Treino Inferior'}
+      </h1>
       <div className="flex flex-row items-center font-medium">
-        Aérobico <X className="ml-1 h-6 w-6" />
+        Aeróbico
+        {workout.aerobic ? (
+          <Check className="ml-1 h-6 w-6" />
+        ) : (
+          <X className="ml-1 h-6 w-6" />
+        )}
       </div>
 
       <div className="flex flex-row items-center gap-2">
-        <span className="text-sm font-medium">há 3 dias</span>
+        <span className="text-sm font-medium">
+          {formatDistanceToNow(workout.created_at, {
+            locale: ptBR,
+            addSuffix: true,
+          })}
+        </span>
 
         <Dialog open={isDetailOpen} onOpenChange={setIsDetailsOpen}>
           <DialogTrigger asChild>
@@ -39,7 +55,7 @@ export function WorktoutCard({ workout }: WorkoutCardProps) {
               <span className="sr-only">Detalhes do Treino</span>
             </Button>
           </DialogTrigger>
-          <WorkoutDetails workoutId="12390821903218" open={isDetailOpen} />
+          <WorkoutDetails workoutId={workout.id} open={isDetailOpen} />
         </Dialog>
       </div>
     </div>

@@ -4,6 +4,7 @@ import { Search, X } from 'lucide-react'
 import { useState } from 'react'
 import { DateRange } from 'react-day-picker'
 import { Controller, useForm } from 'react-hook-form'
+import { useSearchParams } from 'react-router-dom'
 import { z } from 'zod'
 
 import { Button } from '@/components/ui/button'
@@ -24,20 +25,42 @@ const workoutFilterSchema = z.object({
 type WorkoutFilterSchema = z.infer<typeof workoutFilterSchema>
 
 export function HomeFilter() {
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  // const aerobic = searchParams.get('aerobic')
+  const workoutCategory = searchParams.get('workoutcategory')
+
+  const { control, handleSubmit } = useForm<WorkoutFilterSchema>({
+    resolver: zodResolver(workoutFilterSchema),
+    defaultValues: {
+      workout: workoutCategory ?? 'all',
+    },
+  })
+
   const [dateRange, setDateRange] = useState<DateRange | undefined>({
     from: subDays(new Date(), 7),
     to: new Date(),
   })
 
-  const { control } = useForm<WorkoutFilterSchema>({
-    resolver: zodResolver(workoutFilterSchema),
-    defaultValues: {
-      workout: 'all',
-    },
-  })
+  function handleFilter({ workout }: WorkoutFilterSchema) {
+    setSearchParams((state) => {
+      if (workout) {
+        state.set('workout', workout)
+      } else {
+        state.delete('workout')
+      }
+
+      state.set('page', '1')
+
+      return state
+    })
+  }
 
   return (
-    <form className="flex flex-row items-center justify-between">
+    <form
+      className="flex flex-row items-center justify-between"
+      onSubmit={handleSubmit(handleFilter)}
+    >
       <div className="flex flex-row items-center space-x-2">
         <span className="text-base font-semibold">Filtros</span>
 

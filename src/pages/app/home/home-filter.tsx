@@ -19,7 +19,7 @@ import {
 
 const workoutFilterSchema = z.object({
   aerobic: z.boolean().optional(),
-  workout: z.string().optional(),
+  workout_category: z.string().optional(),
 })
 
 type WorkoutFilterSchema = z.infer<typeof workoutFilterSchema>
@@ -27,13 +27,12 @@ type WorkoutFilterSchema = z.infer<typeof workoutFilterSchema>
 export function HomeFilter() {
   const [searchParams, setSearchParams] = useSearchParams()
 
-  // const aerobic = searchParams.get('aerobic')
-  const workoutCategory = searchParams.get('workoutcategory')
+  const workout_category = searchParams.get('workout_category')
 
   const { control, handleSubmit } = useForm<WorkoutFilterSchema>({
     resolver: zodResolver(workoutFilterSchema),
     defaultValues: {
-      workout: workoutCategory ?? 'all',
+      workout_category: workout_category ?? 'all',
     },
   })
 
@@ -42,12 +41,12 @@ export function HomeFilter() {
     to: new Date(),
   })
 
-  function handleFilter({ workout }: WorkoutFilterSchema) {
+  function handleFilter({ workout_category }: WorkoutFilterSchema) {
     setSearchParams((state) => {
-      if (workout) {
-        state.set('workout', workout)
+      if (workout_category) {
+        state.set('workout_category', workout_category)
       } else {
-        state.delete('workout')
+        state.delete('workout_category')
       }
 
       state.set('page', '1')
@@ -65,7 +64,7 @@ export function HomeFilter() {
         <span className="text-base font-semibold">Filtros</span>
 
         <Controller
-          name="workout"
+          name="workout_category"
           control={control}
           render={({ field: { name, onChange, value, disabled } }) => {
             return (

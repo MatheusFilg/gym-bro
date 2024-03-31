@@ -13,6 +13,7 @@ export function Home() {
   const [searchParams, setSearchParams] = useSearchParams()
 
   const workout_category = searchParams.get('workout_category')
+
   const pageIndex = z.coerce
     .number()
     .transform((page) => page - 1)
@@ -34,6 +35,9 @@ export function Home() {
       return state
     })
   }
+
+  console.log(result)
+  console.log(result?.workouts)
   return (
     <div className="space-y-8 p-8">
       <Helmet title="Home" />

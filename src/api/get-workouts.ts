@@ -1,24 +1,23 @@
 import { api } from '@/lib/axios'
 
 export interface GetWorkoutQuery {
-  pageIndex?: number | null
-  workout_category?: string | null
+  workoutCategory?: string | null
 }
 
 interface GetWorkoutsResponse {
   workouts: {
     id: string
-    workout_category: 'upper' | 'lower'
+    workoutCategory: 'upper' | 'lower'
     aerobic: boolean
-    created_at: string
+    createdAt: string
   }[]
+
 }
 
-export async function getWorkouts({ pageIndex, workout_category }: GetWorkoutQuery) {
+export async function getWorkouts({workoutCategory }: GetWorkoutQuery) {
   const response = await api.get<GetWorkoutsResponse>('/workouts', {
     params: {
-      pageIndex,
-      workout_category,
+      workoutCategory,
     },
   })
 

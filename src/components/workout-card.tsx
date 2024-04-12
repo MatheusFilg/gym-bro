@@ -10,9 +10,9 @@ import { WorkoutDetails } from './workout-details'
 interface WorkoutCardProps {
   workout: {
     id: string
-    workout_category: 'upper' | 'lower'
+    workoutCategory: 'upper' | 'lower'
     aerobic: boolean
-    created_at: string
+    createdAt: string
   }
 }
 
@@ -27,7 +27,7 @@ export function WorktoutCard({ workout }: WorkoutCardProps) {
         alt=""
       />
       <h1 className="text-lg font-semibold">
-        {workout.workout_category === 'upper'
+        {workout.workoutCategory === 'upper'
           ? 'Treino Superior'
           : 'Treino Inferior'}
       </h1>
@@ -42,7 +42,7 @@ export function WorktoutCard({ workout }: WorkoutCardProps) {
 
       <div className="flex flex-row items-center gap-2">
         <span className="text-sm font-medium">
-          {formatDistanceToNow((workout.created_at), {
+          {formatDistanceToNow((workout.createdAt), {
             locale: ptBR,
             addSuffix: true,
           })}

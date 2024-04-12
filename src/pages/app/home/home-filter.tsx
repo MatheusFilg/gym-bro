@@ -19,7 +19,7 @@ import {
 
 const workoutFilterSchema = z.object({
   aerobic: z.boolean().optional(),
-  workout_category: z.string().optional(),
+  workoutCategory: z.string().optional(),
 })
 
 type WorkoutFilterSchema = z.infer<typeof workoutFilterSchema>
@@ -27,12 +27,12 @@ type WorkoutFilterSchema = z.infer<typeof workoutFilterSchema>
 export function HomeFilter() {
   const [searchParams, setSearchParams] = useSearchParams()
 
-  const workout_category = searchParams.get('workout_category')
+  const workoutCategory = searchParams.get('workoutCategory')
 
-  const { control, handleSubmit } = useForm<WorkoutFilterSchema>({
+  const { control, handleSubmit, reset } = useForm<WorkoutFilterSchema>({
     resolver: zodResolver(workoutFilterSchema),
     defaultValues: {
-      workout_category: workout_category ?? 'all',
+      workoutCategory: workoutCategory ?? 'all',
     },
   })
 
@@ -41,17 +41,26 @@ export function HomeFilter() {
     to: new Date(),
   })
 
-  function handleFilter({ workout_category }: WorkoutFilterSchema) {
+  function handleFilter({ workoutCategory }: WorkoutFilterSchema) {
     setSearchParams((state) => {
-      if (workout_category) {
-        state.set('workout_category', workout_category)
+      if (workoutCategory) {
+        state.set('workoutCategory', workoutCategory)
       } else {
-        state.delete('workout_category')
+        state.delete('workoutCategory')
       }
 
-      state.set('page', '1')
+      return state
+    })
+  }
+
+  function handleClearFilters() {
+    setSearchParams((state: URLSearchParams) => {
+      state.delete('workoutCategory')
 
       return state
+    })
+    reset({
+      workoutCategory: 'all',
     })
   }
 
@@ -64,7 +73,7 @@ export function HomeFilter() {
         <span className="text-base font-semibold">Filtros</span>
 
         <Controller
-          name="workout_category"
+          name="workoutCategory"
           control={control}
           render={({ field: { name, onChange, value, disabled } }) => {
             return (
@@ -96,7 +105,7 @@ export function HomeFilter() {
           <Search className="mr-2 h-4 w-4" />
           Filtrar resultados
         </Button>
-        <Button type="button" variant="outline" size="xs">
+        <Button type="button" variant="outline" size="xs" onClick={handleClearFilters}>
           <X className="mr-2 h-4 w-4" />
           Remover Filtros
         </Button>

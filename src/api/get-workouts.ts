@@ -4,17 +4,16 @@ export interface GetWorkoutQuery {
   workoutCategory?: string | null
 }
 
-interface GetWorkoutsResponse {
+export interface GetWorkoutsResponse {
   workouts: {
     id: string
     workoutCategory: 'upper' | 'lower'
     aerobic: boolean
     createdAt: string
   }[]
-
 }
 
-export async function getWorkouts({workoutCategory }: GetWorkoutQuery) {
+export async function getWorkouts({ workoutCategory }: GetWorkoutQuery) {
   const response = await api.get<GetWorkoutsResponse>('/workouts', {
     params: {
       workoutCategory,

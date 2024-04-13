@@ -13,7 +13,7 @@ export function Home() {
   const workoutCategory = searchParams.get('workoutCategory')
 
   const { data: result } = useQuery({
-    queryKey: ['workouts', workoutCategory, ],
+    queryKey: ['workouts', workoutCategory],
     queryFn: () =>
       getWorkouts({
         workoutCategory: workoutCategory === 'all' ? null : workoutCategory,

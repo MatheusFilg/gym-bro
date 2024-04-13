@@ -42,7 +42,7 @@ export function WorktoutCard({ workout }: WorkoutCardProps) {
 
       <div className="flex flex-row items-center gap-2">
         <span className="text-sm font-medium">
-          {formatDistanceToNow((workout.createdAt), {
+          {formatDistanceToNow(workout.createdAt, {
             locale: ptBR,
             addSuffix: true,
           })}

@@ -1,14 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { subDays } from 'date-fns'
 import { Search, X } from 'lucide-react'
-import { useState } from 'react'
-import { DateRange } from 'react-day-picker'
 import { Controller, useForm } from 'react-hook-form'
 import { useSearchParams } from 'react-router-dom'
 import { z } from 'zod'
 
 import { Button } from '@/components/ui/button'
-import { DateRangePicker } from '@/components/ui/date-range-picker'
 import {
   Select,
   SelectContent,
@@ -18,7 +14,6 @@ import {
 } from '@/components/ui/select'
 
 const workoutFilterSchema = z.object({
-  aerobic: z.boolean().optional(),
   workoutCategory: z.string().optional(),
 })
 
@@ -34,11 +29,6 @@ export function HomeFilter() {
     defaultValues: {
       workoutCategory: workoutCategory ?? 'all',
     },
-  })
-
-  const [dateRange, setDateRange] = useState<DateRange | undefined>({
-    from: subDays(new Date(), 7),
-    to: new Date(),
   })
 
   function handleFilter({ workoutCategory }: WorkoutFilterSchema) {
@@ -96,8 +86,6 @@ export function HomeFilter() {
             )
           }}
         />
-
-        <DateRangePicker date={dateRange} onDateChange={setDateRange} />
       </div>
 
       <div className="space-x-2">
@@ -105,7 +93,12 @@ export function HomeFilter() {
           <Search className="mr-2 h-4 w-4" />
           Filtrar resultados
         </Button>
-        <Button type="button" variant="outline" size="xs" onClick={handleClearFilters}>
+        <Button
+          type="button"
+          variant="outline"
+          size="xs"
+          onClick={handleClearFilters}
+        >
           <X className="mr-2 h-4 w-4" />
           Remover Filtros
         </Button>

@@ -3,6 +3,8 @@ import { ptBR } from 'date-fns/locale'
 import { Check, Search, X } from 'lucide-react'
 import { useState } from 'react'
 
+import lowerWorkout from '../assets/lowerWorkout.png'
+import upperWorkout from '../assets/upperWorkout.png'
 import { Button } from './ui/button'
 import { Dialog, DialogTrigger } from './ui/dialog'
 import { WorkoutDetails } from './workout-details'
@@ -23,7 +25,7 @@ export function WorktoutCard({ workout }: WorkoutCardProps) {
     <div className="flex w-[200px] flex-col items-center space-y-4 rounded bg-primary py-4 align-middle">
       <img
         className="h-14 w-14"
-        src="https://github.com/MatheusFilg.png"
+        src={workout.workoutCategory === 'upper' ? upperWorkout : lowerWorkout}
         alt=""
       />
       <h1 className="text-lg font-semibold">

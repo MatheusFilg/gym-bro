@@ -2,7 +2,7 @@ import { api } from '@/lib/axios'
 
 export interface CreateWorkoutBody {
   aerobic: boolean
-  workoutCategory: 'upper' | 'lower' | undefined
+  workoutCategory: 'upper' | 'lower'
 }
 
 export async function createWorkout({

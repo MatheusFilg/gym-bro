@@ -2,6 +2,7 @@ import { useMutation } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Controller, useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import { z } from 'zod'
 
 import { createWorkout } from '@/api/create-workout'
@@ -17,7 +18,7 @@ import {
 
 const workoutForm = z.object({
   aerobic: z.boolean(),
-  workoutCategory: z.enum(['upper', 'lower']).optional(),
+  workoutCategory: z.enum(['upper', 'lower']),
 })
 
 type WorkoutForm = z.infer<typeof workoutForm>
@@ -44,8 +45,9 @@ export function Workout() {
         aerobic: data.aerobic,
         workoutCategory: data.workoutCategory,
       })
+      toast.success('Treino registrado com sucesso.')
     } catch {
-      console.log(data)
+      toast.error('Erro ao registrar treino.')
     }
   }
 

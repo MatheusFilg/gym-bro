@@ -5,7 +5,7 @@ interface GetWorkoutDetailsParams {
 }
 
 interface GetWorkoutDetailsResponse {
-  id: string
+  workoutId: string
   workoutCategory: 'upper' | 'lower'
   aerobic: boolean
   createdAt: string

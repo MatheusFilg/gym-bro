@@ -1,53 +1,88 @@
 import { useMutation } from '@tanstack/react-query'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
-import { Controller, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
-import { z } from 'zod'
 
 import { createWorkout } from '@/api/create-workout'
+import { updateWorkout } from '@/api/update-workout'
 import { Button } from '@/components/ui/button'
-import { Checkbox } from '@/components/ui/checkbox'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
 
-const workoutForm = z.object({
-  aerobic: z.boolean(),
-  workoutCategory: z.enum(['upper', 'lower']),
-})
-
-type WorkoutForm = z.infer<typeof workoutForm>
+import { WorkoutCreateForm, WorkoutCreateSchema } from './workout-create-form'
+import { WorkoutUpdateForm, WorkoutUpdateSchema } from './workout-update-form'
 
 export function Workout() {
-  const { reset, handleSubmit, control, formState } = useForm<WorkoutForm>()
+  const [workoutId, setWorkoutId] = useState('')
+
+  const {
+    reset: resetCreateWorkout,
+    handleSubmit: handleSubmitCreateWorkout,
+    control: createWorkoutControl,
+    formState: createWorkoutFormState,
+  } = useForm<WorkoutCreateSchema>()
+
+  const {
+    reset: resetUpdateWorkout,
+    handleSubmit: handleSubmitUpdateWorkout,
+    register: registerUpdateWorkout,
+    formState: updateWorkoutFormState,
+  } = useForm<WorkoutUpdateSchema>()
 
   const { mutateAsync: createWorkoutFn } = useMutation({
     mutationFn: createWorkout,
   })
 
+  const { mutateAsync: updateWorkoutFn } = useMutation({
+    mutationFn: ({ exercise, sets, reps, weight, note }: WorkoutUpdateSchema) =>
+      updateWorkout({ exercise, sets, reps, weight, note, workoutId }),
+  })
+
   useEffect(() => {
-    if (formState.isSubmitSuccessful) {
-      reset({
+    if (createWorkoutFormState.isSubmitSuccessful) {
+      resetCreateWorkout({
         workoutCategory: undefined,
         aerobic: false,
       })
     }
+
+    if (updateWorkoutFormState.isSubmitSuccessful) {
+      resetUpdateWorkout({
+        exercise: '',
+        sets: 0,
+        weight: 0,
+        reps: 0,
+        note: '',
+      })
+    }
   })
 
-  async function handleCreateWorkout(data: WorkoutForm) {
+  async function handleCreateWorkout(data: WorkoutCreateSchema) {
     try {
-      await createWorkoutFn({
+      const response = await createWorkoutFn({
         aerobic: data.aerobic,
         workoutCategory: data.workoutCategory,
       })
+
+      const { workoutId } = response.workout
+      setWorkoutId(workoutId)
       toast.success('Treino registrado com sucesso.')
     } catch {
       toast.error('Erro ao registrar treino.')
+    }
+  }
+
+  async function handleUpdateWorkout({
+    exercise,
+    note,
+    reps,
+    sets,
+    weight,
+  }: WorkoutUpdateSchema) {
+    try {
+      await updateWorkoutFn({ exercise, note, sets, reps, weight })
+      toast.success('Exercício registrado com sucesso.')
+    } catch {
+      toast.error('Erro ao registrar exercício.')
     }
   }
 
@@ -59,69 +94,23 @@ export function Workout() {
           Registre o seu Treino
         </h1>
         <form
-          onSubmit={handleSubmit(handleCreateWorkout)}
+          onSubmit={handleSubmitCreateWorkout(handleCreateWorkout)}
           className="mt-6 flex w-full flex-col gap-4 divide-y"
         >
-          <div className="flex flex-row items-center gap-2 lg:grid lg:grid-cols-form">
-            <label
-              htmlFor="workoutCategory"
-              className="grid-cols-0.5 w-max text-base font-medium"
-            >
-              Tipo de Treino
-            </label>
-
-            <Controller
-              name="workoutCategory"
-              control={control}
-              render={({ field: { name, onChange, value } }) => {
-                return (
-                  <Select name={name} onValueChange={onChange} value={value}>
-                    <SelectTrigger className="h-10 w-[280px] text-lg font-semibold">
-                      {value ? <SelectValue /> : 'Escolha um Treino'}
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem
-                        className="text-lg font-semibold"
-                        value="lower"
-                      >
-                        Treino Inferior
-                      </SelectItem>
-                      <SelectItem
-                        className="text-lg font-semibold"
-                        value="upper"
-                      >
-                        Treino Superior
-                      </SelectItem>
-                    </SelectContent>
-                  </Select>
-                )
-              }}
-            />
-
-            <div className="flex flex-row lg:grid lg:grid-cols-form lg:items-center">
-              <label htmlFor="aerobic" className="w-max text-base font-medium">
-                Aérobico
-              </label>
-              <Controller
-                name="aerobic"
-                defaultValue={false}
-                control={control}
-                render={({ field: { name, onChange, value } }) => {
-                  return (
-                    <Checkbox
-                      name={name}
-                      checked={value}
-                      onCheckedChange={onChange}
-                      id="aerobic"
-                    />
-                  )
-                }}
-              />
-            </div>
-          </div>
+          <WorkoutCreateForm control={createWorkoutControl} />
 
           <div className="flex-col pt-5">
             <Button type="submit">Criar Treino</Button>
+          </div>
+        </form>
+
+        <form
+          onSubmit={handleSubmitUpdateWorkout(handleUpdateWorkout)}
+          className=""
+        >
+          <WorkoutUpdateForm register={registerUpdateWorkout} />
+          <div className="flex-col pt-5">
+            <Button type="submit">Criar Exercício</Button>
           </div>
         </form>
       </div>

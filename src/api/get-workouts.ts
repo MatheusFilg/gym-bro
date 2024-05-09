@@ -1,12 +1,12 @@
 import { api } from '@/lib/axios'
 
 export interface GetWorkoutQuery {
-  workoutCategory?: string | null
+  workoutCategory: string | null
 }
 
 export interface GetWorkoutsResponse {
   workouts: {
-    id: string
+    workoutId: string
     workoutCategory: 'upper' | 'lower'
     aerobic: boolean
     createdAt: string

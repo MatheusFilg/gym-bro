@@ -56,7 +56,7 @@ export function WorkoutDetails({ workoutId, open }: WorkoutDetailsProps) {
       queryClient.setQueryData<GetWorkoutsResponse>(cacheKey, {
         ...cacheData,
         workouts: cacheData.workouts.filter(
-          (workout) => workout.id !== workoutId,
+          (workout) => workout.workoutId !== workoutId,
         ),
       })
     })
@@ -156,7 +156,7 @@ export function WorkoutDetails({ workoutId, open }: WorkoutDetailsProps) {
           <div className="mt-4 flex justify-center gap-2 align-middle">
             <Button
               variant="default"
-              onClick={() => deleteWorkoutFn({ workoutId: workout.id })}
+              onClick={() => deleteWorkoutFn({ workoutId: workout.workoutId })}
             >
               Deletar Treino
             </Button>

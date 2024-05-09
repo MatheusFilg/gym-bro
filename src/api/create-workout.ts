@@ -5,9 +5,22 @@ export interface CreateWorkoutBody {
   workoutCategory: 'upper' | 'lower'
 }
 
+interface CreateWorkoutResponse {
+  workout: {
+    workoutId: string
+    workoutCategory: 'upper' | 'lower'
+    aerobic: boolean
+  }
+}
+
 export async function createWorkout({
   aerobic,
   workoutCategory,
 }: CreateWorkoutBody) {
-  await api.post('/workouts', { aerobic, workoutCategory })
+  const response = await api.post<CreateWorkoutResponse>('/workouts', {
+    aerobic,
+    workoutCategory,
+  })
+
+  return response.data
 }

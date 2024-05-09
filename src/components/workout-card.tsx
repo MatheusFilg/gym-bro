@@ -11,7 +11,7 @@ import { WorkoutDetails } from './workout-details'
 
 interface WorkoutCardProps {
   workout: {
-    id: string
+    workoutId: string
     workoutCategory: 'upper' | 'lower'
     aerobic: boolean
     createdAt: string
@@ -57,7 +57,7 @@ export function WorktoutCard({ workout }: WorkoutCardProps) {
               <span className="sr-only">Detalhes do Treino</span>
             </Button>
           </DialogTrigger>
-          <WorkoutDetails workoutId={workout.id} open={isDetailOpen} />
+          <WorkoutDetails workoutId={workout.workoutId} open={isDetailOpen} />
         </Dialog>
       </div>
     </div>

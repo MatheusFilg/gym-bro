@@ -18,14 +18,15 @@ interface UpdateWorkoutParams {
 }
 
 interface UpdateWorkoutResponse {
-  id: number
-  exercise: string
-  sets: number
-  reps: number
-  weight: number
-  note: string | null
+  data: {
+    id: number
+    exercise: string
+    sets: number
+    reps: number
+    weight: number
+    note: string | null
+  }
 }
-
 export async function updateWorkout({
   workoutId,
   exercise,

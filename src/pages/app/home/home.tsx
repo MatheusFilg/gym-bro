@@ -32,7 +32,7 @@ export function Home() {
       <div className="grid grid-cols-4 grid-rows-2 gap-y-8">
         {result &&
           result.workouts.map((workout) => {
-            return <WorktoutCard key={workout.id} workout={workout} />
+            return <WorktoutCard key={workout.workoutId} workout={workout} />
           })}
       </div>
     </div>

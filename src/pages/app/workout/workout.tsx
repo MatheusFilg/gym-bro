@@ -1,10 +1,11 @@
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 
 import { createWorkout } from '@/api/create-workout'
+import { getWorkoutDetails } from '@/api/get-workout-details'
 import { updateWorkout } from '@/api/update-workout'
 import { Button } from '@/components/ui/button'
 
@@ -13,6 +14,13 @@ import { WorkoutUpdateForm, WorkoutUpdateSchema } from './workout-update-form'
 
 export function Workout() {
   const [workoutId, setWorkoutId] = useState('')
+
+  const { data: newExercise } = useQuery({
+    queryKey: ['workout', workoutId],
+    queryFn: () => getWorkoutDetails({ workoutId }),
+  })
+
+  const queryClient = useQueryClient()
 
   const {
     reset: resetCreateWorkout,
@@ -35,6 +43,9 @@ export function Workout() {
   const { mutateAsync: updateWorkoutFn } = useMutation({
     mutationFn: ({ exercise, sets, reps, weight, note }: WorkoutUpdateSchema) =>
       updateWorkout({ exercise, sets, reps, weight, note, workoutId }),
+    onSuccess: () => {
+      return queryClient.invalidateQueries({ queryKey: ['workout'] })
+    },
   })
 
   useEffect(() => {
@@ -113,6 +124,18 @@ export function Workout() {
             <Button type="submit">Criar Exercício</Button>
           </div>
         </form>
+
+        {newExercise &&
+          newExercise.exercises.map((exercise) => {
+            return (
+              <div key={exercise.exercise}>
+                <h1>{exercise.exercise}</h1>
+                <h1>{exercise.note}</h1>
+                <h1>{exercise.reps}</h1>
+                <h1>{exercise.weight}</h1>
+              </div>
+            )
+          })}
       </div>
     </div>
   )

@@ -9,6 +9,13 @@ interface GetWorkoutDetailsResponse {
   workoutCategory: 'upper' | 'lower'
   aerobic: boolean
   createdAt: string
+  exercises: {
+    exercise: string
+    sets: number
+    reps: number
+    weight: number
+    note: string | null
+  }[]
 }
 
 export async function getWorkoutDetails({
@@ -22,5 +29,6 @@ export async function getWorkoutDetails({
       },
     },
   )
+  console.log(response.data)
   return response.data
 }

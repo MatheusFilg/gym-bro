@@ -27,7 +27,7 @@ export type WorkoutCreateSchema = z.infer<typeof workoutCreateSchema>
 
 export function WorkoutCreateForm({ control }: WorkoutCreateFormProps) {
   return (
-    <div className="flex flex-row items-center gap-2 lg:grid lg:grid-cols-form">
+    <div className="flex flex-row items-center lg:grid lg:grid-cols-form">
       <label
         htmlFor="workoutCategory"
         className="grid-cols-0.5 w-max text-base font-medium"
@@ -57,7 +57,7 @@ export function WorkoutCreateForm({ control }: WorkoutCreateFormProps) {
         }}
       />
 
-      <div className="flex flex-row lg:grid lg:grid-cols-form lg:items-center">
+      <div className="flex w-60 flex-row gap-4 lg:items-center">
         <label htmlFor="aerobic" className="w-max text-base font-medium">
           Aérobico
         </label>

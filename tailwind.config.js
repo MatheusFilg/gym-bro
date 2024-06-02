@@ -14,7 +14,7 @@ module.exports = {
     extend: {
       gridTemplateColumns: {
         app: 'minmax(18rem, 20rem) 1fr',
-        form: 'minmax(7.5rem, 7.5rem) minmax(25rem, 0.5fr) minmax(0, 48rem)',
+        form: 'minmax(4rem, 7rem) minmax(20rem, 0.5fr) minmax(0, 10rem)',
       },
       colors: {
         active: 'hsl(var(--active))',

@@ -39,63 +39,68 @@ export function WorkoutUpdateForm({ register }: WorkoutUpdateFormProps) {
         />
       </div>
 
-      <div className="flex flex-row items-center gap-2">
-        <label className="text-base font-medium" htmlFor="sets">
-          Séries
-        </label>
-        <Input
-          className="h-10 max-w-[65px] text-lg font-semibold"
-          type="number"
-          {...register('sets', {
-            valueAsNumber: true,
-            required: true,
-          })}
-          required
-          max={10}
-          min={1}
-        />
+      <div className="flex flex-row items-center gap-6 py-6">
+        <div className="flex flex-row items-center gap-2">
+          <label className="text-base font-medium" htmlFor="sets">
+            Séries
+          </label>
+          <Input
+            className="h-10 max-w-[60px] text-lg font-semibold"
+            type="number"
+            {...register('sets', {
+              valueAsNumber: true,
+              required: true,
+            })}
+            required
+            max={10}
+            min={1}
+          />
+        </div>
+
+        <div className="flex flex-row items-center gap-2">
+          <label className="text-base font-medium" htmlFor="reps">
+            Repetições
+          </label>
+          <Input
+            className="h-10 max-w-[60px] items-center text-lg font-semibold"
+            type="number"
+            {...register('reps', {
+              valueAsNumber: true,
+            })}
+            required
+            max={50}
+            min={1}
+          />
+        </div>
+
+        <div className="flex flex-row items-center gap-2">
+          <label className="text-base font-medium" htmlFor="weight">
+            Carga(kg)
+          </label>
+          <Input
+            className="h-10 max-w-[70px] items-center text-lg font-semibold"
+            type="number"
+            {...register('weight', {
+              valueAsNumber: true,
+            })}
+            required
+            max={999}
+            min={1}
+          />
+        </div>
       </div>
 
-      <div className="flex flex-row items-center gap-2">
-        <label className="text-base font-medium" htmlFor="reps">
-          Repetições
-        </label>
-        <Input
-          className="h-10 max-w-[75px] items-center text-lg font-semibold"
-          type="number"
-          {...register('reps', {
-            valueAsNumber: true,
-          })}
-          required
-          max={50}
-          min={1}
-        />
-      </div>
+      {/* <div className="flex flex-row items-center gap-2"></div>
 
-      <div className="flex flex-row items-center gap-2">
-        <label className="text-base font-medium" htmlFor="weight">
-          Carga(kg)
-        </label>
-        <Input
-          className="h-10 max-w-[75px] items-center text-lg font-semibold"
-          type="number"
-          {...register('weight', {
-            valueAsNumber: true,
-          })}
-          required
-          max={999}
-          min={1}
-        />
-      </div>
+      <div className="flex flex-row items-center gap-2"></div> */}
 
       <div className="flex flex-row items-center gap-2">
         <label className="text-base font-medium" htmlFor="note">
           Observação
         </label>
         <Textarea
-          className="h-10 w-[280px]"
+          className="h-8 w-[280px]"
           {...register('note')}
-          required
           placeholder="Adicione uma observação ao seu exercício (opcional)"
         />
       </div>

@@ -8,6 +8,14 @@ import { createWorkout } from '@/api/create-workout'
 import { getWorkoutDetails } from '@/api/get-workout-details'
 import { updateWorkout } from '@/api/update-workout'
 import { Button } from '@/components/ui/button'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table'
 
 import { WorkoutCreateForm, WorkoutCreateSchema } from './workout-create-form'
 import { WorkoutUpdateForm, WorkoutUpdateSchema } from './workout-update-form'
@@ -100,42 +108,68 @@ export function Workout() {
   return (
     <div className="space-y-8 p-8">
       <Helmet title="Treinos" />
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-bold text-active">
           Registre o seu Treino
         </h1>
         <form
           onSubmit={handleSubmitCreateWorkout(handleCreateWorkout)}
-          className="mt-6 flex w-full flex-col gap-4 divide-y"
+          className="mt-6 flex w-full flex-row gap-2 border-b-[1px] border-b-primary pb-4"
         >
           <WorkoutCreateForm control={createWorkoutControl} />
-
-          <div className="flex-col pt-5">
+          <div className="flex-col">
             <Button type="submit">Criar Treino</Button>
           </div>
         </form>
-
+        <h1 className="mt-6 text-3xl font-bold text-active">
+          Cadastre os Exercícios
+        </h1>
         <form
           onSubmit={handleSubmitUpdateWorkout(handleUpdateWorkout)}
-          className=""
+          className="mt-2 grid grid-flow-row grid-cols-2"
         >
-          <WorkoutUpdateForm register={registerUpdateWorkout} />
-          <div className="flex-col pt-5">
-            <Button type="submit">Criar Exercício</Button>
+          <div>
+            <WorkoutUpdateForm register={registerUpdateWorkout} />
+            <div className="flex-col pt-5">
+              <Button type="submit">Criar Exercício</Button>
+            </div>
           </div>
-        </form>
 
-        {newExercise &&
-          newExercise.exercises.map((exercise) => {
-            return (
-              <div key={exercise.exercise}>
-                <h1>{exercise.exercise}</h1>
-                <h1>{exercise.note}</h1>
-                <h1>{exercise.reps}</h1>
-                <h1>{exercise.weight}</h1>
-              </div>
-            )
-          })}
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Treino</TableHead>
+                <TableHead className="text-right">Observação</TableHead>
+                <TableHead className="text-right">Séries</TableHead>
+                <TableHead className="text-right">Repetições</TableHead>
+                <TableHead className="text-right">Carga(kg)</TableHead>
+              </TableRow>
+            </TableHeader>
+
+            {newExercise &&
+              newExercise.exercises.map((exercise) => {
+                return (
+                  <TableBody key={exercise.exercise}>
+                    <TableRow>
+                      <TableCell>{exercise.exercise}</TableCell>
+                      <TableCell className="text-right">
+                        {exercise.note}
+                      </TableCell>
+                      <TableCell className="text-right">
+                        {exercise.sets}
+                      </TableCell>
+                      <TableCell className="text-right">
+                        {exercise.reps}
+                      </TableCell>
+                      <TableCell className="text-right">
+                        {exercise.weight}
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                )
+              })}
+          </Table>
+        </form>
       </div>
     </div>
   )

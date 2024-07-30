@@ -14,7 +14,7 @@
 O projeto foi desenvolvido mas poderia melhorar em alguns pontos:
 
 - [ ] Função de login e cadastros de usuários via email;
-- [ ] Criação de exercícios, fazendo com que os treinos sejam detalhados;
+- [X] Criação de exercícios, fazendo com que os treinos sejam detalhados;
 - [ ] Responsividade para mobile e outros dispositivos;
 
 ## 📫 Contribuindo para o Gym.Bro:

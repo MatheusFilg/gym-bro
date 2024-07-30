@@ -152,7 +152,7 @@ export function Workout() {
                   <TableBody key={exercise.exercise}>
                     <TableRow>
                       <TableCell>{exercise.exercise}</TableCell>
-                      <TableCell className="text-right">
+                      <TableCell className="text-right truncate max-w-6">
                         {exercise.note}
                       </TableCell>
                       <TableCell className="text-right">

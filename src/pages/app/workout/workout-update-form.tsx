@@ -90,10 +90,6 @@ export function WorkoutUpdateForm({ register }: WorkoutUpdateFormProps) {
         </div>
       </div>
 
-      {/* <div className="flex flex-row items-center gap-2"></div>
-
-      <div className="flex flex-row items-center gap-2"></div> */}
-
       <div className="flex flex-row items-center gap-2">
         <label className="text-base font-medium" htmlFor="note">
           Observação

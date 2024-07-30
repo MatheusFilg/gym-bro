@@ -111,7 +111,7 @@ export function WorkoutDetails({ workoutId, open }: WorkoutDetailsProps) {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Treino</TableHead>
+                <TableHead>Exercício</TableHead>
                 <TableHead className="text-right">Observação</TableHead>
                 <TableHead className="text-right">Séries</TableHead>
                 <TableHead className="text-right">Repetições</TableHead>
@@ -119,39 +119,28 @@ export function WorkoutDetails({ workoutId, open }: WorkoutDetailsProps) {
               </TableRow>
             </TableHeader>
 
-            <TableBody>
-              <TableRow>
-                <TableCell>Mobilidade</TableCell>
-                <TableCell className="text-right">-</TableCell>
-                <TableCell className="text-right">2</TableCell>
-                <TableCell className="text-right">12</TableCell>
-                <TableCell className="text-right">-</TableCell>
-              </TableRow>
-
-              <TableRow>
-                <TableCell>Mesa Flexora</TableCell>
-                <TableCell className="text-right">Unilateral</TableCell>
-                <TableCell className="text-right">3</TableCell>
-                <TableCell className="text-right">12</TableCell>
-                <TableCell className="text-right">30</TableCell>
-              </TableRow>
-
-              <TableRow>
-                <TableCell className="">Agachamento Stiff</TableCell>
-                <TableCell className="text-right">Dropdown</TableCell>
-                <TableCell className="text-right">3</TableCell>
-                <TableCell className="text-right">1</TableCell>
-                <TableCell className="text-right">30</TableCell>
-              </TableRow>
-
-              <TableRow>
-                <TableCell>Adutor</TableCell>
-                <TableCell className="text-right">Progressão</TableCell>
-                <TableCell className="text-right">3</TableCell>
-                <TableCell className="text-right">12</TableCell>
-                <TableCell className="text-right">50</TableCell>
-              </TableRow>
-            </TableBody>
+            {workout &&
+              workout.exercises.map((exercise) => {
+                return (
+                  <TableBody key={exercise.exercise}>
+                    <TableRow>
+                      <TableCell>{exercise.exercise}</TableCell>
+                      <TableCell className="text-right truncate max-w-6">
+                        {exercise.note}
+                      </TableCell>
+                      <TableCell className="text-right">
+                        {exercise.sets}
+                      </TableCell>
+                      <TableCell className="text-right">
+                        {exercise.reps}
+                      </TableCell>
+                      <TableCell className="text-right">
+                        {exercise.weight}
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                )
+              })}
           </Table>
           <div className="mt-4 flex justify-center gap-2 align-middle">
             <Button

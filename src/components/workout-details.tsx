@@ -1,11 +1,18 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { format } from 'date-fns'
 import { Check, X } from 'lucide-react'
+import { useEffect } from 'react'
+import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 
-import { deleteWorkout } from '@/api/delete-workout'
 import { getWorkoutDetails } from '@/api/get-workout-details'
-import { GetWorkoutsResponse } from '@/api/get-workouts'
+import { updateWorkout } from '@/api/update-workout'
+import {
+  ExerciseCreateForm,
+  ExerciseCreateSchema,
+} from '@/components/exercise-create-form'
 
+import ExerciseTable from './exercise-table'
 import { Button } from './ui/button'
 import {
   DialogContent,
@@ -13,14 +20,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from './ui/dialog'
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from './ui/table'
+import { Table, TableBody, TableCell, TableRow } from './ui/table'
 
 export interface WorkoutDetailsProps {
   workoutId: string
@@ -36,31 +36,53 @@ export function WorkoutDetails({ workoutId, open }: WorkoutDetailsProps) {
 
   const queryClient = useQueryClient()
 
-  const { mutateAsync: deleteWorkoutFn } = useMutation({
-    mutationFn: deleteWorkout,
-    async onSuccess(_, { workoutId }) {
-      deleteWorkoutOnCache(workoutId)
+  const {
+    reset: resetUpdateWorkout,
+    handleSubmit: handleSubmitUpdateWorkout,
+    register: registerUpdateWorkout,
+    formState: updateWorkoutFormState,
+  } = useForm<ExerciseCreateSchema>()
+
+  const { mutateAsync: updateWorkoutFn } = useMutation({
+    mutationFn: ({
+      exercise,
+      sets,
+      reps,
+      weight,
+      note,
+    }: ExerciseCreateSchema) =>
+      updateWorkout({ exercise, sets, reps, weight, note, workoutId }),
+    onSuccess: () => {
+      return queryClient.invalidateQueries({ queryKey: ['workout'] })
     },
   })
 
-  function deleteWorkoutOnCache(workoutId: string) {
-    const workoutsListCache = queryClient.getQueriesData<GetWorkoutsResponse>({
-      queryKey: ['workouts'],
-    })
-
-    workoutsListCache.forEach(([cacheKey, cacheData]) => {
-      if (!cacheData) {
-        return
-      }
-
-      queryClient.setQueryData<GetWorkoutsResponse>(cacheKey, {
-        ...cacheData,
-        workouts: cacheData.workouts.filter(
-          (workout) => workout.workoutId !== workoutId,
-        ),
-      })
-    })
+  async function handleUpdateWorkout({
+    exercise,
+    note,
+    reps,
+    sets,
+    weight,
+  }: ExerciseCreateSchema) {
+    try {
+      await updateWorkoutFn({ exercise, note, sets, reps, weight })
+      toast.success('Exercício registrado com sucesso.')
+    } catch {
+      toast.error('Erro ao registrar exercício.')
+    }
   }
+
+  useEffect(() => {
+    if (updateWorkoutFormState.isSubmitSuccessful) {
+      resetUpdateWorkout({
+        exercise: '',
+        sets: 0,
+        weight: 0,
+        reps: 0,
+        note: '',
+      })
+    }
+  })
 
   return (
     <DialogContent>
@@ -70,7 +92,7 @@ export function WorkoutDetails({ workoutId, open }: WorkoutDetailsProps) {
       </DialogHeader>
 
       {workout && (
-        <div className="space-y-4">
+        <div className="space-y-3">
           <Table>
             <TableBody>
               <TableRow>
@@ -86,7 +108,7 @@ export function WorkoutDetails({ workoutId, open }: WorkoutDetailsProps) {
 
               <TableRow>
                 <TableCell className="text-muted-foreground">
-                  Aérobico
+                  Aeróbico
                 </TableCell>
                 <TableCell className="flex justify-end text-base font-medium">
                   {workout.aerobic ? (
@@ -108,48 +130,14 @@ export function WorkoutDetails({ workoutId, open }: WorkoutDetailsProps) {
             </TableBody>
           </Table>
 
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Exercício</TableHead>
-                <TableHead className="text-right">Observação</TableHead>
-                <TableHead className="text-right">Séries</TableHead>
-                <TableHead className="text-right">Repetições</TableHead>
-                <TableHead className="text-right">Carga(kg)</TableHead>
-              </TableRow>
-            </TableHeader>
-
-            {workout &&
-              workout.exercises.map((exercise) => {
-                return (
-                  <TableBody key={exercise.exercise}>
-                    <TableRow>
-                      <TableCell>{exercise.exercise}</TableCell>
-                      <TableCell className="text-right truncate max-w-6">
-                        {exercise.note}
-                      </TableCell>
-                      <TableCell className="text-right">
-                        {exercise.sets}
-                      </TableCell>
-                      <TableCell className="text-right">
-                        {exercise.reps}
-                      </TableCell>
-                      <TableCell className="text-right">
-                        {exercise.weight}
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
-                )
-              })}
-          </Table>
-          <div className="mt-4 flex justify-center gap-2 align-middle">
-            <Button
-              variant="default"
-              onClick={() => deleteWorkoutFn({ workoutId: workout.workoutId })}
-            >
-              Deletar Treino
-            </Button>
-          </div>
+          <form
+            onSubmit={handleSubmitUpdateWorkout(handleUpdateWorkout)}
+            className="flex flex-col items-center gap-4"
+          >
+            <ExerciseCreateForm register={registerUpdateWorkout} />
+            <ExerciseTable workout={workout} />
+            <Button type="submit">Criar Exercício</Button>
+          </form>
         </div>
       )}
     </DialogContent>

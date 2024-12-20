@@ -3,12 +3,13 @@ import { Helmet } from 'react-helmet-async'
 import { useSearchParams } from 'react-router-dom'
 
 import { getWorkouts } from '@/api/get-workouts'
-import { WorktoutCard } from '@/components/workout-card'
+import { WorkoutCard } from '@/components/workout-card'
+import { WorkoutEmpty } from '@/components/workout-empty'
 
-import { HomeFilter } from './home-filter'
+import HomeHeader from './home-header'
 
 export function Home() {
-  const [searchParams, setSearchParams] = useSearchParams()
+  const [searchParams] = useSearchParams()
 
   const workoutCategory = searchParams.get('workoutCategory')
 
@@ -23,18 +24,21 @@ export function Home() {
   return (
     <div className="space-y-8 p-8">
       <Helmet title="Home" />
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 border-b-[1px] border-b-primary">
         <h1 className="text-3xl font-bold text-active">Home</h1>
-
-        <HomeFilter />
+        <HomeHeader />
       </div>
 
-      <div className="grid grid-cols-4 grid-rows-2 gap-y-8">
-        {result &&
-          result.workouts.map((workout) => {
-            return <WorktoutCard key={workout.workoutId} workout={workout} />
-          })}
-      </div>
+      {result && result.workouts.length > 0 ? (
+        <div className="grid grid-cols-5 grid-rows-2 gap-y-8">
+          {result &&
+            result.workouts.map((workout) => {
+              return <WorkoutCard key={workout.workoutId} workout={workout} />
+            })}
+        </div>
+      ) : (
+        <WorkoutEmpty />
+      )}
     </div>
   )
 }

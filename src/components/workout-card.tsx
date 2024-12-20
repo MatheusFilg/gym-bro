@@ -1,7 +1,12 @@
+import { useMutation } from '@tanstack/react-query'
 import { formatDistanceToNow } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
-import { Check, Search, X } from 'lucide-react'
+import { Check, Search, Trash, X } from 'lucide-react'
 import { useState } from 'react'
+
+import { deleteWorkout } from '@/api/delete-workout'
+import { GetWorkoutsResponse } from '@/api/get-workouts'
+import { queryClient } from '@/lib/react-query'
 
 import lowerWorkout from '../assets/lowerWorkout.png'
 import upperWorkout from '../assets/upperWorkout.png'
@@ -18,9 +23,34 @@ interface WorkoutCardProps {
   }
 }
 
-export function WorktoutCard({ workout }: WorkoutCardProps) {
+export function WorkoutCard({ workout }: WorkoutCardProps) {
   const [isDetailOpen, setIsDetailsOpen] = useState(false)
 
+  const { mutateAsync: deleteWorkoutFn } = useMutation({
+    mutationFn: deleteWorkout,
+    async onSuccess(_, { workoutId }) {
+      deleteWorkoutOnCache(workoutId)
+    },
+  })
+
+  function deleteWorkoutOnCache(workoutId: string) {
+    const workoutsListCache = queryClient.getQueriesData<GetWorkoutsResponse>({
+      queryKey: ['workouts'],
+    })
+
+    workoutsListCache.forEach(([cacheKey, cacheData]) => {
+      if (!cacheData) {
+        return
+      }
+
+      queryClient.setQueryData<GetWorkoutsResponse>(cacheKey, {
+        ...cacheData,
+        workouts: cacheData.workouts.filter(
+          (workout) => workout.workoutId !== workoutId,
+        ),
+      })
+    })
+  }
   return (
     <div className="flex w-[200px] flex-col items-center space-y-4 rounded bg-primary py-4 align-middle">
       <img
@@ -59,6 +89,14 @@ export function WorktoutCard({ workout }: WorkoutCardProps) {
           </DialogTrigger>
           <WorkoutDetails workoutId={workout.workoutId} open={isDetailOpen} />
         </Dialog>
+
+        <Button
+          variant="outline"
+          className="h-6 p-2"
+          onClick={() => deleteWorkoutFn({ workoutId: workout.workoutId })}
+        >
+          <Trash className="h-3 w-3" />
+        </Button>
       </div>
     </div>
   )

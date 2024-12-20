@@ -4,7 +4,7 @@ interface GetWorkoutDetailsParams {
   workoutId: string
 }
 
-interface GetWorkoutDetailsResponse {
+export interface GetWorkoutDetailsResponse {
   workoutId: string
   workoutCategory: 'upper' | 'lower'
   aerobic: boolean

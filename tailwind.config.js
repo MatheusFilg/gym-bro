@@ -13,7 +13,7 @@ module.exports = {
     },
     extend: {
       gridTemplateColumns: {
-        app: 'minmax(18rem, 20rem) 1fr',
+        app: 'minmax(18rem, 10rem) 1fr',
         form: 'minmax(4rem, 7rem) minmax(20rem, 0.5fr) minmax(0, 10rem)',
       },
       colors: {

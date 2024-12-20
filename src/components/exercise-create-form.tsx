@@ -4,7 +4,7 @@ import { z } from 'zod'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 
-interface WorkoutUpdateFormProps {
+interface ExerciseCreateFormProps {
   register: UseFormRegister<{
     exercise: string
     sets: number
@@ -14,7 +14,7 @@ interface WorkoutUpdateFormProps {
   }>
 }
 
-const workoutUpdateSchema = z.object({
+const exerciseCreateSchema = z.object({
   exercise: z.string(),
   sets: z.number(),
   reps: z.number(),
@@ -22,17 +22,21 @@ const workoutUpdateSchema = z.object({
   note: z.string().nullable(),
 })
 
-export type WorkoutUpdateSchema = z.infer<typeof workoutUpdateSchema>
+export type ExerciseCreateSchema = z.infer<typeof exerciseCreateSchema>
 
-export function WorkoutUpdateForm({ register }: WorkoutUpdateFormProps) {
+export function ExerciseCreateForm({ register }: ExerciseCreateFormProps) {
   return (
-    <div className="flex flex-col gap-4 pt-4">
+    <div className="flex flex-col gap-2 border-t-[1px] border-border ">
+      <h1 className="my-2 self-center text-xl font-semibold">
+        Cadastre seus Exercícios
+      </h1>
+
       <div className="flex flex-row items-center gap-4">
-        <label className="text-base font-medium" htmlFor="exercise">
+        <label className="text-lg font-medium" htmlFor="exercise">
           Exercício
         </label>
         <Input
-          className="h-10 w-[280px] text-lg font-semibold"
+          className="h-8 w-fit font-semibold"
           {...register('exercise', { required: true })}
           type="text"
           required
@@ -41,11 +45,11 @@ export function WorkoutUpdateForm({ register }: WorkoutUpdateFormProps) {
 
       <div className="flex flex-row items-center gap-6 py-6">
         <div className="flex flex-row items-center gap-2">
-          <label className="text-base font-medium" htmlFor="sets">
+          <label className="text-lg font-medium" htmlFor="sets">
             Séries
           </label>
           <Input
-            className="h-10 max-w-[60px] text-lg font-semibold"
+            className="h-8 max-w-[60px] font-semibold"
             type="number"
             {...register('sets', {
               valueAsNumber: true,
@@ -58,11 +62,11 @@ export function WorkoutUpdateForm({ register }: WorkoutUpdateFormProps) {
         </div>
 
         <div className="flex flex-row items-center gap-2">
-          <label className="text-base font-medium" htmlFor="reps">
+          <label className="text-lg font-medium" htmlFor="reps">
             Repetições
           </label>
           <Input
-            className="h-10 max-w-[60px] items-center text-lg font-semibold"
+            className="h-8 max-w-[60px] items-center font-semibold"
             type="number"
             {...register('reps', {
               valueAsNumber: true,
@@ -74,11 +78,11 @@ export function WorkoutUpdateForm({ register }: WorkoutUpdateFormProps) {
         </div>
 
         <div className="flex flex-row items-center gap-2">
-          <label className="text-base font-medium" htmlFor="weight">
-            Carga(kg)
+          <label className="text-lg font-medium" htmlFor="weight">
+            Carga (kg)
           </label>
           <Input
-            className="h-10 max-w-[70px] items-center text-lg font-semibold"
+            className="h-8 max-w-[60px] font-semibold"
             type="number"
             {...register('weight', {
               valueAsNumber: true,
@@ -95,7 +99,7 @@ export function WorkoutUpdateForm({ register }: WorkoutUpdateFormProps) {
           Observação
         </label>
         <Textarea
-          className="h-8 w-[280px]"
+          className="h-8 min-w-fit"
           {...register('note')}
           placeholder="Adicione uma observação ao seu exercício (opcional)"
         />

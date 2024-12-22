@@ -1,4 +1,4 @@
-# Gym.Bro (Em construção)
+# Gym.Bro
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/MatheusFilg/gym-bro)
 ![GitHub language count](https://img.shields.io/github/languages/count/MatheusFilg/gym-bro)
@@ -13,9 +13,9 @@
 
 O projeto foi desenvolvido mas poderia melhorar em alguns pontos:
 
-- [ ] Função de login e cadastros de usuários via email;
 - [X] Criação de exercícios, fazendo com que os treinos sejam detalhados;
 - [ ] Responsividade para mobile e outros dispositivos;
+- [ ] Utilização de testes para maior segurança no desenvolvimento;
 
 ## 📫 Contribuindo para o Gym.Bro:
 

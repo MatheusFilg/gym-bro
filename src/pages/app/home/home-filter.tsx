@@ -56,11 +56,11 @@ export function HomeFilter() {
 
   return (
     <form
-      className="flex flex-row items-center gap-4"
+      className="flex flex-row items-center gap-1 lg:gap-4"
       onSubmit={handleSubmit(handleFilter)}
     >
-      <div className="flex flex-row items-center space-x-2">
-        <span className="text-base font-semibold">Filtros</span>
+      <div className="flex flex-row items-center gap-x-1">
+        <span className="text-sm font-semibold lg:text-base">Filtros</span>
 
         <Controller
           name="workoutCategory"
@@ -74,7 +74,7 @@ export function HomeFilter() {
                 onValueChange={onChange}
                 disabled={disabled}
               >
-                <SelectTrigger className="h-8 w-[200px]">
+                <SelectTrigger className="h-6 w-[150px] justify-items-start lg:h-8 lg:w-[160px] lg:text-base">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -88,19 +88,24 @@ export function HomeFilter() {
         />
       </div>
 
-      <div className="space-x-2">
-        <Button type="submit" variant="default" size="xs">
-          <Search className="mr-2 h-4 w-4" />
-          Filtrar resultados
+      <div className="flex flex-row gap-x-2">
+        <Button
+          type="submit"
+          variant="default"
+          className=" h-auto w-auto px-2 py-1 lg:h-8 lg:w-36"
+        >
+          <Search className="h-4 w-4 lg:mr-2" />
+          <span className="hidden lg:mb-0.5 lg:flex">Filtrar resultados</span>
         </Button>
+
         <Button
           type="button"
           variant="outline"
-          size="xs"
           onClick={handleClearFilters}
+          className=" h-auto w-auto px-2 py-1 lg:flex lg:h-8 lg:w-36"
         >
-          <X className="mr-2 h-4 w-4" />
-          Remover Filtros
+          <X className="h-4 w-4 lg:mr-2" />
+          <span className="hidden lg:mb-0.5 lg:flex">Remover Filtros</span>
         </Button>
       </div>
     </form>

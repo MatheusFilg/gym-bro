@@ -24,7 +24,7 @@ export function Home() {
   return (
     <div className="space-y-8 p-8">
       <Helmet title="Home" />
-      <div className="flex flex-col gap-4 border-b-[1px] border-b-primary">
+      <div className="flex flex-col gap-6 border-b-[1px] border-b-primary">
         <h1 className="text-3xl font-bold text-active">Home</h1>
         <HomeHeader />
       </div>

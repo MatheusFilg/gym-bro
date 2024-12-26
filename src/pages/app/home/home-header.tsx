@@ -11,7 +11,7 @@ export default function HomeHeader() {
   const [isDetailOpen, setIsDetailsOpen] = useState(false)
 
   return (
-    <div className="mb-2 flex flex-row gap-7 lg:gap-10">
+    <div className="mb-2 flex flex-row justify-between lg:gap-10">
       <HomeFilter />
 
       <Dialog open={isDetailOpen} onOpenChange={setIsDetailsOpen}>

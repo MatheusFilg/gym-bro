@@ -30,7 +30,7 @@ export function Home() {
       </div>
 
       {result && result.workouts.length > 0 ? (
-        <div className="grid grid-cols-2 grid-rows-2 gap-y-8 lg:grid-cols-5">
+        <div className="grid grid-cols-2 grid-rows-2 gap-x-16 gap-y-8 lg:grid-cols-5">
           {result &&
             result.workouts.map((workout) => {
               return <WorkoutCard key={workout.workoutId} workout={workout} />

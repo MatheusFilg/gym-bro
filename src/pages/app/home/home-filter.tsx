@@ -56,7 +56,7 @@ export function HomeFilter() {
 
   return (
     <form
-      className="flex flex-row items-center gap-1 lg:gap-4"
+      className="flex flex-row items-center gap-2 lg:gap-4"
       onSubmit={handleSubmit(handleFilter)}
     >
       <div className="flex flex-row items-center gap-x-1">

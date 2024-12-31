@@ -22,7 +22,7 @@ export function Home() {
   })
 
   return (
-    <div className="space-y-8 p-8">
+    <div className="min-h-screen space-y-8 p-8">
       <Helmet title="Home" />
       <div className="flex flex-col gap-6 border-b-[1px] border-b-primary">
         <h1 className="text-3xl font-bold text-active">Home</h1>
@@ -30,7 +30,7 @@ export function Home() {
       </div>
 
       {result && result.workouts.length > 0 ? (
-        <div className="grid grid-cols-5 grid-rows-2 gap-y-8">
+        <div className="grid grid-cols-2 grid-rows-2 gap-y-8 lg:grid-cols-5">
           {result &&
             result.workouts.map((workout) => {
               return <WorkoutCard key={workout.workoutId} workout={workout} />

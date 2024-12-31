@@ -52,7 +52,7 @@ export function WorkoutCard({ workout }: WorkoutCardProps) {
     })
   }
   return (
-    <div className="flex w-[200px] flex-col items-center space-y-4 rounded bg-primary py-4 align-middle">
+    <div className="flex w-[150px] flex-col items-center gap-2 rounded bg-primary p-2 align-middle lg:w-[200px] lg:space-y-4 lg:p-4">
       <img
         className="h-14 w-14"
         src={workout.workoutCategory === 'upper' ? upperWorkout : lowerWorkout}
@@ -72,7 +72,7 @@ export function WorkoutCard({ workout }: WorkoutCardProps) {
         )}
       </div>
 
-      <div className="flex flex-row items-center gap-2">
+      <div className="flex items-center gap-2">
         <span className="text-sm font-medium">
           {formatDistanceToNow(workout.createdAt, {
             locale: ptBR,

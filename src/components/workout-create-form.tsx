@@ -76,7 +76,7 @@ export function WorkoutCreateForm() {
         onSubmit={handleSubmitCreateWorkout(handleCreateWorkout)}
         className="m-6 flex flex-col items-center gap-6 align-middle"
       >
-        <div className="flex flex-row items-center align-middle">
+        <div className="flex flex-row items-center gap-2 align-middle">
           {/* Select Component */}
           <div className="flex flex-col gap-2">
             <label

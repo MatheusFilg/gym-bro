@@ -4,9 +4,9 @@ import { Sidebar } from '@/components/sidebar'
 
 export function AppLayout() {
   return (
-    <div className="min-h-screen lg:grid lg:grid-cols-app">
+    <div className="grid min-h-screen lg:grid-cols-app lg:gap-2">
       <Sidebar />
-      <div>
+      <div className="pt-16 lg:pt-0">
         <Outlet />{' '}
       </div>
     </div>

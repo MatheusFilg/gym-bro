@@ -2,7 +2,7 @@ import { Github, Linkedin } from 'lucide-react'
 
 export function Footer() {
   return (
-    <div className="flex-row justify-between">
+    <div className="flex h-[85vh] flex-col justify-end">
       <p className="text-lg font-medium leading-relaxed">
         Feito por <span className="underline">Matheus F.</span>
       </p>

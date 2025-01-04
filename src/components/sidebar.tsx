@@ -12,10 +12,7 @@ import { Button } from './ui/button'
 
 export function Sidebar() {
   return (
-    <Collapsible
-      className="fixed left-0 right-0 top-0 z-20 flex flex-col px-4 pt-2 lg:static lg:right-auto lg:border-r lg:p-2"
-      // className="fixed left-0 right-0 top-0 z-20 flex flex-col justify-self-end data-[state=open]:bottom-0 lg:static lg:right-auto lg:top-0 lg:border-r lg:px-4 lg:py-8 lg:data-[state=closed]:bottom-0"
-    >
+    <Collapsible className="fixed left-0 right-0 top-0 z-20 flex flex-col px-4 pt-2 lg:static lg:right-auto lg:border-r lg:p-2">
       <div className="flex w-full items-center justify-between">
         <div className="flex flex-row items-center gap-2">
           <Dumbbell className="h-8 w-8" />

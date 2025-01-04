@@ -92,14 +92,14 @@ export function WorkoutDetails({ workoutId, open }: WorkoutDetailsProps) {
       </DialogHeader>
 
       {workout && (
-        <div className="space-y-3">
+        <div className="w-[85%] lg:w-full lg:space-y-3">
           <Table>
             <TableBody>
               <TableRow>
                 <TableCell className="text-muted-foreground">
                   Tipo do Treino
                 </TableCell>
-                <TableCell className="flex justify-end text-base font-medium">
+                <TableCell className="text-base font-medium lg:flex lg:justify-end">
                   {workout.workoutCategory === 'upper'
                     ? 'Treino Superior'
                     : 'Treino Inferior'}
@@ -110,7 +110,7 @@ export function WorkoutDetails({ workoutId, open }: WorkoutDetailsProps) {
                 <TableCell className="text-muted-foreground">
                   Aeróbico
                 </TableCell>
-                <TableCell className="flex justify-end text-base font-medium">
+                <TableCell className="text-base font-medium lg:flex lg:justify-end">
                   {workout.aerobic ? (
                     <Check className="ml-1 h-6 w-6" />
                   ) : (
@@ -123,7 +123,7 @@ export function WorkoutDetails({ workoutId, open }: WorkoutDetailsProps) {
                 <TableCell className="text-muted-foreground">
                   Realizado em:
                 </TableCell>
-                <TableCell className="flex justify-end text-base font-medium">
+                <TableCell className="text-base font-medium lg:flex lg:justify-end">
                   {format(workout.createdAt, 'dd/MM/yyyy')}
                 </TableCell>
               </TableRow>

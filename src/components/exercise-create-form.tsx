@@ -26,26 +26,26 @@ export type ExerciseCreateSchema = z.infer<typeof exerciseCreateSchema>
 
 export function ExerciseCreateForm({ register }: ExerciseCreateFormProps) {
   return (
-    <div className="flex flex-col gap-2 border-t-[1px] border-border ">
-      <h1 className="my-2 self-center text-xl font-semibold">
+    <div className="flex w-full flex-col gap-2 border-t-[1px] border-border ">
+      <h1 className="my-2 self-center text-lg font-semibold lg:text-xl">
         Cadastre seus Exercícios
       </h1>
 
-      <div className="flex flex-row items-center gap-4">
-        <label className="text-lg font-medium" htmlFor="exercise">
+      <div className="flex flex-row items-center gap-2 lg:gap-4">
+        <label className="font-medium lg:text-lg" htmlFor="exercise">
           Exercício
         </label>
         <Input
-          className="h-8 w-fit font-semibold"
+          className=" h-8 w-fit font-semibold"
           {...register('exercise', { required: true })}
           type="text"
           required
         />
       </div>
 
-      <div className="flex flex-row items-center gap-6 py-6">
+      <div className="flex flex-col items-start gap-6 py-3 lg:flex-row lg:items-center lg:py-6">
         <div className="flex flex-row items-center gap-2">
-          <label className="text-lg font-medium" htmlFor="sets">
+          <label className="font-medium lg:text-lg" htmlFor="sets">
             Séries
           </label>
           <Input
@@ -62,7 +62,7 @@ export function ExerciseCreateForm({ register }: ExerciseCreateFormProps) {
         </div>
 
         <div className="flex flex-row items-center gap-2">
-          <label className="text-lg font-medium" htmlFor="reps">
+          <label className="font-medium lg:text-lg" htmlFor="reps">
             Repetições
           </label>
           <Input
@@ -78,7 +78,7 @@ export function ExerciseCreateForm({ register }: ExerciseCreateFormProps) {
         </div>
 
         <div className="flex flex-row items-center gap-2">
-          <label className="text-lg font-medium" htmlFor="weight">
+          <label className="font-medium lg:text-lg" htmlFor="weight">
             Carga (kg)
           </label>
           <Input
@@ -95,11 +95,11 @@ export function ExerciseCreateForm({ register }: ExerciseCreateFormProps) {
       </div>
 
       <div className="flex flex-row items-center gap-2">
-        <label className="text-base font-medium" htmlFor="note">
+        <label className="font-medium lg:text-lg" htmlFor="note">
           Observação
         </label>
         <Textarea
-          className="h-8 min-w-fit"
+          className="h-8 w-2/3 lg:min-w-fit"
           {...register('note')}
           placeholder="Adicione uma observação ao seu exercício (opcional)"
         />

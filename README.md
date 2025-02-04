@@ -7,6 +7,9 @@
 ![Bitbucket open pull requests](https://img.shields.io/bitbucket/pr-raw/MatheusFilg/gym-bro)
 
 Deploy da Aplicação: [Gym.bro](https://gym-bro-matheusf.netlify.app)
+
+![Image](https://github.com/user-attachments/assets/77cbf2f7-d95a-4f3d-8ea5-7d17baf5e8b5)
+
 > Projeto Gym.Bro que é uma aplicação para auxiliar e acompanhar a evolução dos seus treinos.
 
 ### Ajustes e melhorias
@@ -14,7 +17,7 @@ Deploy da Aplicação: [Gym.bro](https://gym-bro-matheusf.netlify.app)
 O projeto foi desenvolvido mas poderia melhorar em alguns pontos:
 
 - [X] Criação de exercícios, fazendo com que os treinos sejam detalhados;
-- [ ] Responsividade para mobile e outros dispositivos;
+- [X] Responsividade para mobile e outros dispositivos;
 - [ ] Utilização de testes para maior segurança no desenvolvimento;
 
 ## 📫 Contribuindo para o Gym.Bro:

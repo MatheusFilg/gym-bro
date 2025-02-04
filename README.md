@@ -6,7 +6,7 @@
 ![Bitbucket open issues](https://img.shields.io/bitbucket/issues/MatheusFilg/gym-bro)
 ![Bitbucket open pull requests](https://img.shields.io/bitbucket/pr-raw/MatheusFilg/gym-bro)
 
-
+Deploy da Aplicação: [Gym.bro](https://gym-bro-matheusf.netlify.app)
 > Projeto Gym.Bro que é uma aplicação para auxiliar e acompanhar a evolução dos seus treinos.
 
 ### Ajustes e melhorias
